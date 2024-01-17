@@ -2,7 +2,7 @@ import UserModel from './auth.model';
 import bcrypt from 'bcrypt';
 
 export default class AuthService {
-async createUser(username: string, email: string, password: string): Promise<typeof UserModel> {
+async createUser(username: string, email: string, password: string) {
     try {
         const existingUser = await this.findByEmail(email);
         if (existingUser) {
@@ -22,15 +22,15 @@ async createUser(username: string, email: string, password: string): Promise<typ
     }
 }
 
-    async findByEmail(email: string): Promise<typeof UserModel> {
+    async findByEmail(email: string) {
         return UserModel.findOne({ email });
     }
 
-    async findById(id: string): Promise<typeof UserModel> {
+    async findById(id: string) {
         return UserModel.findById(id);
     }
 
-async validateUser(email: string, password: string): Promise<typeof UserModel> {
+async validateUser(email: string, password: string) {
     try {
         const user = await this.findByEmail(email);
         if (!user) {
@@ -46,8 +46,8 @@ async validateUser(email: string, password: string): Promise<typeof UserModel> {
     }
 }
 
-    async updateUser( user: Partial<typeof UserModel>): Promise<typeof UserModel> {
-        return UserModel.findOneAndUpdate({ _id: user._id }, user, { new: true });
+    async updateUser( id: string, user: Partial<typeof UserModel>) {
+        return UserModel.findOneAndUpdate({ _id: id }, user, { new: true });
     }
 
     /**
@@ -56,7 +56,7 @@ async validateUser(email: string, password: string): Promise<typeof UserModel> {
      * @param {string} id - The ID of the user to delete.
      * @return {Promise<typeof UserModel>} - A promise that resolves to the deleted user object.
      */
-    async deleteUser(id: string): Promise<typeof UserModel> {
+    async deleteUser(id: string) {
         return UserModel.findByIdAndDelete(id);
     }
 }
