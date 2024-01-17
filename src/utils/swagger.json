@@ -1,0 +1,736 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Task Scheduler API",
+        "description": "Task Scheduler API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/auth/create-user": {
+            "post": {
+                "summary": "Create a new user",
+                "tags": ["Authentication"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "username": "exampleUser",
+                                "email": "user@example.com",
+                                "password": "examplePassword"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User created successfully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "username": "exampleUser",
+                                    "email": "user@example.com"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/auth/fetch-by-email": {
+            "get": {
+                "summary": "Fetch user by email",
+                "tags": ["Authentication"],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "username": "exampleUser",
+                                    "email": "user@example.com"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/auth/fetch-by-id": {
+            "get": {
+                "summary": "Fetch user by ID",
+                "tags": ["Authentication"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "username": "exampleUser",
+                                    "email": "user@example.com"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "summary": "User login",
+                "tags": ["Authentication"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "email": "user@example.com",
+                                "password": "examplePassword"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User logged in successfully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "username": "exampleUser",
+                                    "email": "user@example.com"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/auth/update-user": {
+            "put": {
+                "summary": "Update user",
+                "tags": ["Authentication"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "username": "updatedUser",
+                                "email": "updated@example.com"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User updated successfully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "username": "updatedUser",
+                                    "email": "updated@example.com"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/auth/delete-user": {
+            "delete": {
+                "summary": "Delete user",
+                "tags": ["Authentication"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "User deleted"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/categories": {
+            "post": {
+                "summary": "Create a new category",
+                "tags": ["Categories"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "name": "Example Category",
+                                "color": "#00FF00",
+                                "id": "exampleCategoryId"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Category created successfully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "name": "Example Category",
+                                    "color": "#00FF00"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/categories/{id}": {
+            "get": {
+                "summary": "Get category by ID",
+                "tags": ["Categories"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "name": "Example Category",
+                                    "color": "#00FF00"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update category",
+                "tags": ["Categories"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "name": "Updated Category",
+                                "color": "#0000FF"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Category updated successfully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "name": "Updated Category",
+                                    "color": "#0000FF"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete category",
+                "tags": ["Categories"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Category deleted"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/categories/user/{id}": {
+            "get": {
+                "summary": "Get categories by user ID",
+                "tags": ["Categories"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Categories found",
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "name": "Category 1",
+                                        "color": "#FF0000"
+                                    },
+                                    {
+                                        "name": "Category 2",
+                                        "color": "#00FF00"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/tasks": {
+            "post": {
+                "summary": "Create a new task",
+                "tags": ["Tasks"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "title": "Example Task",
+                                "description": "Example task description",
+                                "user_id": "exampleUserId",
+                                "category_id": "exampleCategoryId",
+                                "due_date": "2024-01-15T12:00:00.000Z",
+                                "status": "pending",
+                                "is_recurring": false,
+                                "recurrence": {
+                                    "frequency": "daily",
+                                    "interval": 1,
+                                    "end_date": null
+                                },
+                                "reminders": [
+                                    {
+                                        "date": "2024-01-15T10:00:00.000Z",
+                                        "message": "Reminder for the task"
+                                    }
+                                ],
+                                "notes": "Additional notes for the task",
+                                "priority": "medium"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Task created successfully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "title": "Example Task",
+                                    "description": "Example task description",
+                                    "user_id": "exampleUserId",
+                                    "category_id": "exampleCategoryId",
+                                    "due_date": "2024-01-15T12:00:00.000Z",
+                                    "status": "pending",
+                                    "is_recurring": false,
+                                    "recurrence": {
+                                        "frequency": "daily",
+                                        "interval": 1,
+                                        "end_date": null
+                                    },
+                                    "reminders": [
+                                        {
+                                            "date": "2024-01-15T10:00:00.000Z",
+                                            "message": "Reminder for the task"
+                                        }
+                                    ],
+                                    "notes": "Additional notes for the task",
+                                    "priority": "medium"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/tasks/user/{id}": {
+            "get": {
+                "summary": "Get tasks by user ID",
+                "tags": ["Tasks"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tasks found",
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "title": "Example Task 1",
+                                        "description": "Example task description 1",
+                                        "user_id": "exampleUserId",
+                                        "category_id": "exampleCategoryId",
+                                        "due_date": "2024-01-15T12:00:00.000Z",
+                                        "status": "pending",
+                                        "is_recurring": false,
+                                        "recurrence": {
+                                            "frequency": "daily",
+                                            "interval": 1,
+                                            "end_date": null
+                                        },
+                                        "reminders": [
+                                            {
+                                                "date": "2024-01-15T10:00:00.000Z",
+                                                "message": "Reminder for the task 1"
+                                            }
+                                        ],
+                                        "notes": "Additional notes for the task 1",
+                                        "priority": "medium"
+                                    },
+                                    {
+                                        "title": "Example Task 2",
+                                        "description": "Example task description 2",
+                                        "user_id": "exampleUserId",
+                                        "category_id": "exampleCategoryId",
+                                        "due_date": "2024-01-16T12:00:00.000Z",
+                                        "status": "pending",
+                                        "is_recurring": false,
+                                        "recurrence": {
+                                            "frequency": "daily",
+                                            "interval": 1,
+                                            "end_date": null
+                                        },
+                                        "reminders": [
+                                            {
+                                                "date": "2024-01-16T10:00:00.000Z",
+                                                "message": "Reminder for the task 2"
+                                            }
+                                        ],
+                                        "notes": "Additional notes for the task 2",
+                                        "priority": "medium"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/tasks/{id}": {
+            "get": {
+                "summary": "Get task by ID",
+                "tags": ["Tasks"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Task found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "title": "Example Task",
+                                    "description": "Example task description",
+                                    "user_id": "exampleUserId",
+                                    "category_id": "exampleCategoryId",
+                                    "due_date": "2024-01-15T12:00:00.000Z",
+                                    "status": "pending",
+                                    "is_recurring": false,
+                                    "recurrence": {
+                                        "frequency": "daily",
+                                        "interval": 1,
+                                        "end_date": null
+                                    },
+                                    "reminders": [
+                                        {
+                                            "date": "2024-01-15T10:00:00.000Z",
+                                            "message": "Reminder for the task"
+                                        }
+                                    ],
+                                    "notes": "Additional notes for the task",
+                                    "priority": "medium"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update task",
+                "tags": ["Tasks"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "status": "completed"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Task updated successfully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "title": "Example Task",
+                                    "description": "Example task description",
+                                    "user_id": "exampleUserId",
+                                    "category_id": "exampleCategoryId",
+                                    "due_date": "2024-01-15T12:00:00.000Z",
+                                    "status": "completed",
+                                    "is_recurring": false,
+                                    "recurrence": {
+                                        "frequency": "daily",
+                                        "interval": 1,
+                                        "end_date": null
+                                    },
+                                    "reminders": [
+                                        {
+                                            "date": "2024-01-15T10:00:00.000Z",
+                                            "message": "Reminder for the task"
+                                        }
+                                    ],
+                                    "notes": "Additional notes for the task",
+                                    "priority": "medium"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete task",
+                "tags": ["Tasks"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Task deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Task deleted"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/tasks/category/{id}": {
+            "get": {
+                "summary": "Get tasks by category ID",
+                "tags": ["Tasks"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tasks found",
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "title": "Example Task 1",
+                                        "description": "Example task description 1",
+                                        "user_id": "exampleUserId",
+                                        "category_id": "exampleCategoryId",
+                                        "due_date": "2024-01-15T12:00:00.000Z",
+                                        "status": "pending",
+                                        "is_recurring": false,
+                                        "recurrence": {
+                                            "frequency": "daily",
+                                            "interval": 1,
+                                            "end_date": null
+                                        },
+                                        "reminders": [
+                                            {
+                                                "date": "2024-01-15T10:00:00.000Z",
+                                                "message": "Reminder for the task 1"
+                                            }
+                                        ],
+                                        "notes": "Additional notes for the task 1",
+                                        "priority": "medium"
+                                    },
+                                    {
+                                        "title": "Example Task 2",
+                                        "description": "Example task description 2",
+                                        "user_id": "exampleUserId",
+                                        "category_id": "exampleCategoryId",
+                                        "due_date": "2024-01-16T12:00:00.000Z",
+                                        "status": "pending",
+                                        "is_recurring": false,
+                                        "recurrence": {
+                                            "frequency": "daily",
+                                            "interval": 1,
+                                            "end_date": null
+                                        },
+                                        "reminders": [
+                                            {
+                                                "date": "2024-01-16T10:00:00.000Z",
+                                                "message": "Reminder for the task 2"
+                                            }
+                                        ],
+                                        "notes": "Additional notes for the task 2",
+                                        "priority": "medium"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        }
+    }
+}

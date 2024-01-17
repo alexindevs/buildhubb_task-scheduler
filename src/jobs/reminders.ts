@@ -5,6 +5,7 @@ import Task, { ITaskAndUser } from '../tasks/tasks.model'; // Import the Task mo
 import nodemailer from 'nodemailer';
 
 cron.schedule('* * * * *', () => {
+    console.log('Running reminders job...');
     handleDueTaskNotifications();
 });
 
@@ -25,13 +26,13 @@ function sendDueTaskNotificationEmail(to: string, subject: string, text: string)
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'your-email@gmail.com',
-            pass: 'your-email-password'
+            user: 'alexindevs@gmail.com',
+            pass: process.env.EMAIL_PASS
         }
     });
 
     const mailOptions = {
-        from: 'your-email@gmail.com',
+        from: 'alexindevs@gmail.com',
         to,
         subject,
         text
