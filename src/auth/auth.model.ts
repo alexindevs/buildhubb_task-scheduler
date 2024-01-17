@@ -20,4 +20,13 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
+interface IUser {
+  _id: string;
+  username: string;
+  email: string;
+  password: string;
+}
+
+export {IUser};
+
 export default User;

@@ -51,8 +51,8 @@ export default class AuthController {
     async updateUser(req: Request, res: Response): Promise<any> {
         try {
             const { id } = req.params;
-            const { update } = req.body;
-            const user = await this.authService.updateUser({ _id: id, update });
+            const update = req.body;
+            const user = await this.authService.updateUser(id, update );
             return res.status(200).json(user);
         } catch (error) {
             return res.status(500).json(error);

@@ -9,6 +9,11 @@ const Task = new mongoose.Schema({
         type: String,
         required: true
     },
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     category_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
@@ -61,17 +66,62 @@ const Task = new mongoose.Schema({
         enum: ['low', 'medium', 'high'],
         default: 'medium'
     },
-    attachments: [
-        {
-            filename: String,
-            url: String
-        }
-    ],
 }, {
     timestamps: true,
     collection: 'tasks',
 });
 
 const TaskSchema = mongoose.model('Task', Task);
+
+import { IUser } from '../auth/auth.model'
+  
+    interface ITask {
+        _id: string;
+        title: string;
+        description: string;
+        user_id: string;
+        category_id: string;
+        due_date: string;
+        status: string;
+        is_recurring: boolean;
+        recurrence: {
+          frequency: string;
+          interval: number;
+          end_date: Date | null;
+        };
+        reminders: Array<{
+          date: Date;
+          message: string;
+        }>;
+        createdAt: string;
+        updatedAt: string;
+      }
+
+  interface ITaskAndUser {
+    _id: string;
+    title: string;
+    description: string;
+    user_id: IUser;
+    category_id: string;
+    due_date: string;
+    status: string;
+    is_recurring: boolean;
+    recurrence: {
+      frequency: string;
+      interval: number;
+      end_date: Date | null;
+    };
+    reminders: Array<{
+      date: Date;
+      message: string;
+    }>;
+    createdAt: string;
+    updatedAt: string;
+  }
+
+  export {
+    ITaskAndUser,
+    ITask
+  }
 
 export default TaskSchema;

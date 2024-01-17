@@ -4,6 +4,9 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import * as dotenv from 'dotenv';
 import AuthRouter from './auth/auth.routes';
+import TaskRouter from './tasks/tasks.routes';
+import CategoryRouter from './categories/category.routes';
+
 import { v4 as uuidv4 } from 'uuid';
 import winston from 'winston';
 
@@ -22,6 +25,12 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb').then(
 );
 
 app.use('/auth', AuthRouter);
+app.use('/tasks', TaskRouter);
+app.use('/categories', CategoryRouter);
+
+app.get("/ping", (req: Request, res: Response) => {
+  res.send("pong");
+});
 
 app.get("/", (req, res) => {
   res.send("Hello, World!");
