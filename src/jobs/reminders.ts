@@ -17,6 +17,11 @@ async function handleDueTaskNotifications() {
         }
     }).populate('user_id');
 
+    if (dueTasks.length === 0) {
+        console.log('No due tasks found.');
+        return;
+    }
+
     dueTasks.forEach((task: Document & ITaskAndUser) => {
         sendDueTaskNotificationEmail(task.user_id.email, 'Task Due Soon', `Your task "${task.title}" is due soon.`);
     });

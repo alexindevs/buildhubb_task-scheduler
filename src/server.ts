@@ -21,6 +21,8 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb').then(() => {
   console.log("Connected to MongoDB.")
 });
 
+import './jobs/reminders'
+
 app.use('/auth', AuthRouter);
 app.use('/tasks', TaskRouter);
 app.use('/categories', CategoryRouter);
