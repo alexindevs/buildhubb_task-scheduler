@@ -218,7 +218,7 @@
                             "example": {
                                 "name": "Example Category",
                                 "color": "#00FF00",
-                                "id": "exampleCategoryId"
+                                "id": "exampleUserID"
                             }
                         }
                     }
