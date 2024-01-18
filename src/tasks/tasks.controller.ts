@@ -1,16 +1,13 @@
 import TaskService from "./tasks.service";
 import { Request, Response } from 'express';
 
-export default class TaskController {
-    taskService: TaskService;
-    constructor() {
-        this.taskService = new TaskService();
-    }
+const taskService = new TaskService();
 
+export default class TaskController {
     async createTask(req: Request, res: Response) {
         try {
             const taskBody = req.body;
-            const task = await this.taskService.createTask(taskBody);
+            const task = await taskService.createTask(taskBody);
             return res.status(201).json(task);
         } catch (error: any) {
             console.log(error);
@@ -21,7 +18,7 @@ export default class TaskController {
     async getTasksByUser(req: Request, res: Response) {
         try {
             const { id } = req.params;
-            const tasks = await this.taskService.getTasksByUser(id);
+            const tasks = await taskService.getTasksByUser(id);
             return res.status(200).json(tasks);
         } catch (error: any) {
             console.log(error);
@@ -32,7 +29,7 @@ export default class TaskController {
     async getTaskById(req: Request, res: Response) {
         try {
             const { id } = req.params;
-            const task = await this.taskService.getTaskById(id);
+            const task = await taskService.getTaskById(id);
             return res.status(200).json(task);
         } catch (error: any) {
             console.log(error);
@@ -43,7 +40,7 @@ export default class TaskController {
     async getTasksByCategory(req: Request, res: Response) {
         try {
             const { id } = req.params;
-            const tasks = await this.taskService.getTasksByCategory(id);
+            const tasks = await taskService.getTasksByCategory(id);
             return res.status(200).json(tasks);
         } catch (error: any) {
             console.log(error);
@@ -55,7 +52,7 @@ export default class TaskController {
         try {
             const { id } = req.params;
             const { status } = req.body;
-            const task = await this.taskService.updateTaskStatus(id, status);
+            const task = await taskService.updateTaskStatus(id, status);
             return res.status(200).json(task);
         } catch (error: any) {
             console.log(error);
@@ -67,7 +64,7 @@ export default class TaskController {
         try {
             const { id } = req.params;
             const updates = req.body;
-            const task = await this.taskService.updateTask(id, updates);
+            const task = await taskService.updateTask(id, updates);
             return res.status(200).json(task);
         } catch (error: any) {
             console.log(error);
@@ -78,7 +75,7 @@ export default class TaskController {
     async deleteTask(req: Request, res: Response) {
         try {
             const { id } = req.params;
-            const task = await this.taskService.deleteTask(id);
+            const task = await taskService.deleteTask(id);
             return res.status(200).json(task);
         } catch (error: any) {
             console.log(error);
