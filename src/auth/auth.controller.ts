@@ -12,7 +12,8 @@ export default class AuthController {
             const { username, email, password } = req.body;
             const newUser = await this.authService.createUser(username, email, password);7
             return res.status(201).json(newUser);
-        } catch (error) {
+        } catch (error: unknown) {
+            console.log(error)
             return res.status(500).json(error);
         }
     }

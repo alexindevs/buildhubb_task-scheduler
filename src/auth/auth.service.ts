@@ -18,6 +18,7 @@ async createUser(username: string, email: string, password: string) {
 
         return user;
     } catch (error) {
+        console.log(error);
         throw error;
     }
 }
