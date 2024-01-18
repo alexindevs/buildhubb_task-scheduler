@@ -23,7 +23,7 @@ async function handleDueTaskNotifications() {
     }
 
     dueTasks.forEach((task: Document & ITaskAndUser) => {
-        sendDueTaskNotificationEmail(task.user_id.email, 'Task Due Soon', `Your task "${task.title}" is due soon.`);
+        sendDueTaskNotificationEmail(task.user_id.email, "Alex's Task Due Soon", `Your task "${task.title}" is due soon.`);
     });
 }
 
