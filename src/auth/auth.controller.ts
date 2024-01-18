@@ -22,8 +22,8 @@ export default class AuthController {
             const { email } = req.body;
             const user = await this.authService.findByEmail(email);
             return res.status(200).json(user);
-        } catch (error) {
-            return res.status(500).json(error);
+        } catch (error: any) {
+            return res.status(500).json({error: error.message});
         }
     }
 
