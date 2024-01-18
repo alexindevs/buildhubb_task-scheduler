@@ -4,7 +4,7 @@ import Task, { ITaskAndUser } from '../tasks/tasks.model'; // Import the Task mo
 
 import nodemailer from 'nodemailer';
 
-cron.schedule('* * * * *', () => {
+cron.schedule('*/10 * * * *', () => {
     console.log('Running reminders job...');
     handleDueTaskNotifications();
 });
