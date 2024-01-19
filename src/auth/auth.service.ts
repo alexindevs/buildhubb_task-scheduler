@@ -9,8 +9,7 @@ async createUser(username: string, email: string, password: string) {
             throw new Error('User already exists');
         }
 
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
+        const hashedPassword = await bcrypt.hash(password);
         password = hashedPassword;
 
         const user = new UserModel({ username, email, password });
